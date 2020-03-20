@@ -1,23 +1,51 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import socketIoClient from "socket.io-client";
 
 const TestRoom = () => {
-  const [incomingMessages, setIncomingMessages] = useState([{name:"lyc",message: "hellow lyc"}]);
+  const [userName, setUserName] = useState("");
   const [inputMessage, setInputMessage] = useState("");
-  const [inputUserName, setInputUserName] = useState("");
+  const [incomingMessages, setIncomingMessages] = useState([{ name: "", message: "" }]);
+  const socket = socketIoClient('http://localhost:3000');
+  // socket.on('new message', (data) => {
+  //   addChatMessage(data);
+  // });
 
-  // var socket = io();
-  const login = (inputUserName) => {
-    
+  // // socket.on('user joined', (data) => {
+  //   console.log(data.username + ' joined');
+  // });
+  useEffect(() => {
+    if (socket) {
+      //連線成功在 console 中打印訊息
+      console.log('success connect!')
+      //設定監聽
+      initSocketIoClient()
+    }
+  }, [socket])
+
+
+  const initSocketIoClient = () => {
+    console.log("initSocketIoClient")
+  }
+  const login = (userName) => {
+    console.log(userName)
+    // // Tell the server username
+    // socket.emit('add user', userName);
   }
 
-  const sendMessage = (inputMessage) => {
-    var message = inputMessage;
-    addChatMessage({name:"lyc", message:message});
-    setInputMessage("");
-  }
+  // const sendMessage = (inputMessage) => {
+  //   var message = inputMessage;
+  //   setInputMessage("");
+  //   if (socket) {
+  //     addChatMessage({
+  //       name: userName,
+  //       message: message
+  //     });
+  //   }
+  //   socket.emit('new message', message);
+  // }
 
   const addChatMessage = (data, options) => {
-    setIncomingMessages([...incomingMessages, {name:data.name, message:data.message}]);
+    setIncomingMessages([...incomingMessages, { name: data.name, message: data.message }]);
   }
 
   return (
@@ -26,18 +54,18 @@ const TestRoom = () => {
       <div className="IntoView">
         <h2>你的綽號是啥?</h2>
         <input
-          value={inputUserName}
+          value={userName}
           placeholder="ex: ㄩㄑ"
-          onChange={(event) => setInputUserName(event.target.value)}></input>
+          onChange={(event) => setUserName(event.target.value)}></input>
         <button
           className="ml-2"
-          disabled={(inputUserName.length > 0) ? false : true}
-          onClick={() => login(inputUserName)}>OK</button>
+          disabled={(userName.length > 0) ? false : true}
+          onClick={() => login(userName)}>OK</button>
       </div>
 
       <div className="MessageArea">
         <ul className="Messages">
-          <li className="Message">{inputUserName} 歡迎進入聊天室 :D</li>
+          <li className="Message">{userName} 歡迎進入聊天室 :D</li>
           {incomingMessages.map((item) => (
             <li key={item.mseeage} className="Message">{item.name} {item.message}</li>
           ))}
@@ -48,10 +76,10 @@ const TestRoom = () => {
           value={inputMessage}
           placeholder="say something :)"
           onChange={(event) => setInputMessage(event.target.value)}></input>
-        <button
+        {/* <button
           className="ml-2"
           disabled={(inputMessage.length > 0) ? false : true}
-          onClick={() => sendMessage(inputMessage)} >send</button>
+          onClick={() => sendMessage(inputMessage)} >send</button> */}
       </div>
     </div>
   );
