@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import socketIoClient from "socket.io-client";
+// import socketIoClient from "socket.io-client";
 
 const TestRoom = () => {
   const [userName, setUserName] = useState("");
@@ -7,16 +7,16 @@ const TestRoom = () => {
   const [incomingMessages, setIncomingMessages] = useState([{ name: "", message: "" }]);
   // const [socket, setSocket] = useState(null);
 
-  const socket = socketIoClient('http://localhost:3000');
-  useEffect(() => {
-    console.log('ss');
-    if (socket) {
-      //連線成功在 console 中打印訊息
-      console.log('success connect!')
-      //設定監聽
-      initSocketIoClient()
-    }
-  }, [socket])
+  // const socket = socketIoClient('http://localhost:3000');
+  // useEffect(() => {
+  //   console.log('ss');
+  //   if (socket) {
+  //     //連線成功在 console 中打印訊息
+  //     console.log('success connect!')
+  //     //設定監聽
+  //     initSocketIoClient()
+  //   }
+  // }, [socket])
 
   // socket.on('new message', (data) => {
   //   addChatMessage(data);
@@ -26,10 +26,9 @@ const TestRoom = () => {
   //   console.log(data.username + ' joined');
   // });
 
-
-  const initSocketIoClient = () => {
-    console.log("initSocketIoClient")
-  }
+  // const initSocketIoClient = () => {
+  //   console.log("initSocketIoClient")
+  // }
   const login = (userName) => {
     console.log(userName);
     setUserName(userName);
@@ -38,12 +37,16 @@ const TestRoom = () => {
   const sendMessage = (inputMessage) => {
     var message = inputMessage;
     setInputMessage("");
-    if (socket) {
-      addChatMessage({
-        name: userName,
-        message: message
-      });
-    }
+    addChatMessage({
+      name: userName,
+      message: message
+    });
+    // if (socket) {
+    //   addChatMessage({
+    //     name: userName,
+    //     message: message
+    //   });
+    // }
     // socket.emit('new message', message);
   }
 
