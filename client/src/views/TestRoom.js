@@ -36,6 +36,7 @@ const TestRoom = () => {
 
   const sendMessage = (inputMessage) => {
     var message = inputMessage;
+    console.log(inputMessage)
     setInputMessage("");
     addChatMessage({
       name: userName,
@@ -62,7 +63,7 @@ const TestRoom = () => {
         <h2>你的綽號是啥?</h2>
         <input
           value={userName}
-          placeholder="ex: ㄩㄑ"
+          placeholder="ex: ㄩㄑxxss"
           onChange={(event) => login(event.target.value)}></input>
         {/* <button
             type="submit"
