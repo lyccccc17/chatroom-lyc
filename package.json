@@ -3,10 +3,17 @@
   "version": "1.0.0",
   "private": true,
   "description": "",
-  "main": "index.js",
+  "engines": {
+    "node": "12.15.0",
+    "yarn": "1.22.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "client-install": "npm install --prefix client",
+    "server": "nodemon ./bin/www",
+    "client": "npm start --prefix client",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "repository": {
     "type": "git",
@@ -19,12 +26,15 @@
   },
   "homepage": "https://github.com/lyccccc17/chatroom-lyc#readme",
   "dependencies": {
-    "express": "^4.17.1",
-    "socket.io": "^2.3.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
+    "express": "^4.17.1",
     "http-errors": "~1.6.3",
-    "jade": "~1.11.0",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
   }
 }
