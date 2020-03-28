@@ -33,7 +33,7 @@ const TestRoom = () => {
         <h2>你的綽號是啥?</h2>
         <input
           value={userName}
-          placeholder="ex: ㄩㄑ"
+          placeholder="ex: ㄩㄑ..."
           onChange={(event) => login(event.target.value)}></input>
         <button
           className="ml-2"
